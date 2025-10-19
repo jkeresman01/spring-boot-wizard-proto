@@ -1,0 +1,44 @@
+<idea-plugin>
+    <id>com.keresman.spring-boot-wizard</id>
+    <name>Spring Boot Wizard</name>
+    <vendor url="https://github.com/jkeresman01">Josip Keresman</vendor>
+
+    <description><![CDATA[
+        <h3>Spring Boot Project Wizard for IntelliJ IDEA Community Edition</h3>
+        <p>Provides a user-friendly interface to create Spring Boot projects with Spring Initializr integration.</p>
+        <br/>
+        <p><b>Features:</b></p>
+        <ul>
+            <li>Integration with Spring Initializr (start.spring.io)</li>
+            <li>Support for Java, Kotlin, and Groovy</li>
+            <li>Gradle (Groovy/Kotlin) and Maven build systems</li>
+            <li>Easy dependency selection with search</li>
+            <li>Multiple Spring Boot versions</li>
+        </ul>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
+    <depends>org.jetbrains.kotlin</depends>
+    <depends>com.intellij.gradle</depends>
+    <depends>org.jetbrains.idea.maven</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Register the project generator -->
+        <directoryProjectGenerator implementation="com.keresman.springbootwizard.SpringBootProjectGenerator"/>
+
+        <!-- Register module builder as well for better visibility -->
+        <moduleBuilder builderClass="com.keresman.springbootwizard.SpringBootModuleBuilder"/>
+    </extensions>
+
+    <actions>
+        <!-- Add action to File > New menu -->
+        <action id="SpringBoot.NewProject"
+                class="com.keresman.springbootwizard.NewSpringBootProjectAction"
+                text="Spring Boot Project"
+                description="Create a new Spring Boot project"
+                icon="AllIcons.Nodes.Module">
+            <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewProject"/>
+        </action>
+    </actions>
+</idea-plugin>
